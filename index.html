@@ -1,59 +1,75 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Para Ti 💖</title>
+    <meta charset="UTF-8">
+    <title>Para Ti ❤️</title>
     <style>
         body {
+            margin: 0;
             background: linear-gradient(to bottom, #ff9a9e, #fad0c4);
-            text-align: center;
             font-family: Arial, sans-serif;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
             overflow: hidden;
+            text-align: center;
+        }
+
+        .slide {
+            position: absolute;
+            opacity: 0;
+            transition: opacity 1.5s ease-in-out;
+            width: 80%;
+        }
+
+        .active {
+            opacity: 1;
+        }
+
+        img {
+            width: 250px;
+            border-radius: 20px;
+            margin-top: 20px;
         }
 
         h1 {
-            margin-top: 100px;
             font-size: 40px;
-            color: white;
         }
 
         p {
-            font-size: 20px;
-            color: white;
-        }
-
-        .heart {
-            position: absolute;
-            color: red;
-            font-size: 24px;
-            animation: float 5s linear infinite;
-        }
-
-        @keyframes float {
-            from { transform: translateY(100vh); }
-            to { transform: translateY(-10vh); }
+            font-size: 22px;
         }
     </style>
 </head>
 <body>
 
-<h1>Feliz San Valentín ❤️</h1>
-<p>Eres la mejor parte de mi vida 💕</p>
-<p>Te amo muchísimo 🥰</p>
+<div class="slide active">
+    <h1>Hola Mi Amor ❤️</h1>
+    <p>Tengo algo especial para ti...</p>
+</div>
+
+<div class="slide">
+    <h1>Desde que llegaste 💕</h1>
+    <p>Mi vida es mucho más bonita.</p>
+</div>
+
+<div class="slide">
+    <h1>Gracias por existir 🥰</h1>
+    <p>Eres mi persona favorita.</p>
+    <img src="https://media.giphy.com/media/MDJ9IbxxvDUQM/giphy.gif">
+</div>
 
 <script>
-    function createHeart() {
-        const heart = document.createElement("div");
-        heart.classList.add("heart");
-        heart.innerText = "💖";
-        heart.style.left = Math.random() * 100 + "vw";
-        document.body.appendChild(heart);
+    let slides = document.querySelectorAll(".slide");
+    let current = 0;
 
-        setTimeout(() => {
-            heart.remove();
-        }, 5000);
-    }
-
-    setInterval(createHeart, 300);
+    setInterval(() => {
+        slides[current].classList.remove("active");
+        current = (current + 1) % slides.length;
+        slides[current].classList.add("active");
+    }, 4000);
 </script>
 
 </body>
