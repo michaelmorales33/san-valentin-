@@ -7,17 +7,23 @@
 <style>
 body {
   margin: 0;
+  height: 100vh;
+  display: flex;
+  justify-content: center;  /* centra horizontal */
+  align-items: center;      /* centra vertical */
+  text-align: center;
   background: radial-gradient(circle at center, #111 0%, #000 100%);
-  overflow: hidden;
   font-family: 'Georgia', serif;
   color: white;
+  overflow: hidden;
 }
 
 #background {
   position: fixed;
   width: 100%;
   height: 100%;
-  background-size: cover;
+  background-size: contain;       /* muestra toda la imagen */
+  background-repeat: no-repeat;
   background-position: center;
   animation: kenburns 20s ease-in-out infinite alternate;
   opacity: 0;
@@ -31,14 +37,20 @@ body {
 
 #text {
   position: absolute;
-  bottom: 15%;
-  width: 100%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 80%;
   text-align: center;
-  font-size: 28px;
-  padding: 0 40px;
+  font-size: 40px; /* tamaño grande */
+  color: #000000; /* negro */
+  text-shadow: 2px 2px 8px rgba(255,255,255,0.5); /* sombra blanca suave para resaltar sobre fotos oscuras */
+  padding: 0 20px;
   opacity: 0;
   transition: opacity 2s ease;
 }
+
+
 
 #playBtn {
   position: absolute;
@@ -53,6 +65,7 @@ body {
   cursor: pointer;
   backdrop-filter: blur(5px);
   transition: opacity 0.5s ease;
+  z-index: 3;
 }
 </style>
 </head>
@@ -67,75 +80,42 @@ body {
 
 <script>
 const blocks = [
-
 `Para mi leoncita ❤️`,
-
 `Mi amor,`,
-
 `Hay verdades que el corazón conoce, pero que a veces el alma necesita escuchar en voz alta.`,
-
 `Hace un año la vida nos puso el reto de la distancia; el destino quiso que le demostremos al mundo lo que significa amar de verdad en un tiempo donde todo brilla por lo efímero que es.`,
-
 `Hoy la vida nos exige templanza y nos pide demostrar de qué estamos hechos.`,
-
 `Sé que ha habido días grises.`,
-
 `Días de abrazos imaginarios y noches largas donde mi único deseo era sentir tu presencia aquí, a mi lado.`,
-
 `Sé que has llorado más de lo que me cuentas.`,
-
 `Sé que hay situaciones que pesan más que el plomo y no encuentro palabras suficientes para agradecerte lo que ha significado tenerte al otro lado de la pantalla:`,
-
 `Siempre pendiente, siempre paciente, siempre tú.`,
-
 `Ha sido una prueba muy, muy dura.`,
-
 `Lo fácil era renunciar y aceptar que no siempre se obtiene lo que uno desea.`,
-
 `Y aun así… te quedaste.`,
-
 `Te quedaste firme y leal, amándome incluso cuando los kilómetros parecían pesarnos más de la cuenta.`,
-
 `Sé que nuestra historia no ha sido un camino llano y que a veces soy algo difícil.`,
-
 `Desde el principio hemos pasado varios baches, pero hemos superado cada prueba y esta no será la excepción.`,
-
 `Nos queda tramo por recorrer, meses de esfuerzo y de compromiso con nuestros sueños y objetivos.`,
-
 `Pero quiero que lo sepas hoy y siempre:`,
-
 `Yo te elijo a ti. Una y mil veces..`,
-
 `En cada una de mis metas, estar contigo es la prioridad absoluta.`,
-
 `Mi leoncita de cabello indomable y corazón de pollito:`,
-
 `Eres mi hogar, aunque hoy no comparta tu código postal.`,
-
 `Eres mi calma cuando la tormenta parece imposible, mi motor para seguir luchando y un pilar inquebrantable que sostiene mi casa en medio de este caos.`,
-
 `Por eso te preparé este detalle; lo hice con lo poco que sé, pero con toda la emoción que me cabe en el pecho.`,
-
 `No quería flores que mueren en semanas; quería algo que se quedara contigo, algo que pudieras ver cada vez que necesites recordar cuánto te amo.`,
-
 `Esta es mi forma de decirte gracias.`,
-
 `Gracias por ser tan grande a pesar de tu juventud, gracias por tu amor, tu paciencia, tu lealtad, gracias por estar toda loquita y amarme a pesar de mi desastre.`,
-
 `happens :), No llores bobita, hoy celebramos que nuestro amor es más fuerte e intenso que el primer día. Hoy celebramos que en un mundo donde tod@s eligen el camino fácil, tú has elegido luchar como una guerrera en defensa de tus convicciones y tu corazón.`,
-
-`La distancia no nos está separando, nos está enseñando a amarnos en lo profundo. El día que vuelva a abrazarte, entenderemos que cada segundo de espera fue el precio justo por lo que tenemos. `,
-
+`La distancia no nos está separando, nos está enseñando a amarnos en lo profundo. El día que vuelva a abrazarte, entenderemos que cada segundo de espera fue el precio justo por lo que tenemos.`,
 "Feliz San Valentín 2026. Te amo muchísimo, mi leoncita."
-
 ];
 
 const photos = [];
-
 for (let i = 1; i <= 30; i++) {
   photos.push(`imagenes/foto${i}.jpeg`);
 }
-
 
 let index = 0;
 const textElement = document.getElementById("text");
@@ -144,37 +124,26 @@ const music = document.getElementById("music");
 const playBtn = document.getElementById("playBtn");
 
 function showNextBlock() {
-
   textElement.style.opacity = 0;
-
   setTimeout(() => {
-
     if (index >= blocks.length) {
-      setTimeout(endPresentation, 10000);
+      setTimeout(endPresentation, 15000); // 15s al final
       return;
     }
-
     textElement.innerText = blocks[index];
     background.style.backgroundImage = `url(${photos[index % photos.length]})`;
-
     background.style.opacity = 1;
     textElement.style.opacity = 1;
-
     index++;
-
     setTimeout(showNextBlock, 10200);
-
   }, 2000);
 }
 
 function endPresentation() {
-
   textElement.style.transition = "opacity 3s ease";
   textElement.style.opacity = 0;
-
   background.style.transition = "opacity 4s ease";
   background.style.opacity = 0;
-
   let fadeAudio = setInterval(() => {
     if (music.volume > 0.05) {
       music.volume -= 0.05;
@@ -186,30 +155,19 @@ function endPresentation() {
 }
 
 playBtn.addEventListener("click", () => {
-
   playBtn.style.opacity = 0;
-
-  setTimeout(() => {
-    playBtn.style.display = "none";
-  }, 500);
-
-  setTimeout(() => {
-    music.volume = 1;
-    music.play();
-  }, 2500);
-
-  setTimeout(() => {
+  setTimeout(() => { playBtn.style.display = "none"; }, 500);
+  setTimeout(() => { music.volume = 1; music.play(); }, 2500);
+  setTimeout(() => { 
     background.style.backgroundImage = `url(${photos[0]})`;
     background.style.opacity = 1;
   }, 3500);
-
   setTimeout(() => {
     textElement.innerText = blocks[0];
     textElement.style.opacity = 1;
     index = 1;
     setTimeout(showNextBlock, 10200);
   }, 4500);
-
 });
 </script>
 
