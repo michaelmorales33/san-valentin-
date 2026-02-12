@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<<!DOCTYPE html>
 <html lang="es">
 <head>
 <meta charset="UTF-8">
@@ -9,8 +9,8 @@ body {
   margin: 0;
   height: 100vh;
   display: flex;
-  justify-content: center;  /* centra horizontal */
-  align-items: center;      /* centra vertical */
+  justify-content: center;
+  align-items: center;
   text-align: center;
   background: radial-gradient(circle at center, #111 0%, #000 100%);
   font-family: 'Georgia', serif;
@@ -22,12 +22,13 @@ body {
   position: fixed;
   width: 100%;
   height: 100%;
-  background-size: contain;       /* muestra toda la imagen */
+  background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
   animation: kenburns 20s ease-in-out infinite alternate;
   opacity: 0;
   transition: opacity 2s ease;
+  z-index: 0;
 }
 
 @keyframes kenburns {
@@ -35,22 +36,32 @@ body {
   to { transform: scale(1.08); }
 }
 
+/* ✨ NUEVO ESTILO DEL TEXTO */
 #text {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 80%;
-  text-align: center;
-  font-size: 40px; /* tamaño grande */
-  color: #000000; /* negro */
-  text-shadow: 2px 2px 8px rgba(255,255,255,0.5); /* sombra blanca suave para resaltar sobre fotos oscuras */
-  padding: 0 20px;
+  width: 75%;
+  max-width: 900px;
+  font-size: 38px;
+  line-height: 1.4;
+  color: white;
+
+  /* Fondo romántico degradado */
+  background: linear-gradient(135deg, rgba(255,0,100,0.85), rgba(180,0,60,0.85));
+  
+  padding: 40px;
+  border-radius: 20px;
+
+  /* Efecto cristal elegante */
+  backdrop-filter: blur(10px);
+  box-shadow: 0 0 40px rgba(255, 0, 100, 0.4);
+
   opacity: 0;
   transition: opacity 2s ease;
+  z-index: 2;
 }
-
-
 
 #playBtn {
   position: absolute;
@@ -127,7 +138,7 @@ function showNextBlock() {
   textElement.style.opacity = 0;
   setTimeout(() => {
     if (index >= blocks.length) {
-      setTimeout(endPresentation, 15000); // 15s al final
+      setTimeout(endPresentation, 15000);
       return;
     }
     textElement.innerText = blocks[index];
@@ -151,25 +162,5 @@ function endPresentation() {
       music.volume = 0;
       clearInterval(fadeAudio);
     }
-  }, 300);
-}
+  }, 3
 
-playBtn.addEventListener("click", () => {
-  playBtn.style.opacity = 0;
-  setTimeout(() => { playBtn.style.display = "none"; }, 500);
-  setTimeout(() => { music.volume = 1; music.play(); }, 2500);
-  setTimeout(() => { 
-    background.style.backgroundImage = `url(${photos[0]})`;
-    background.style.opacity = 1;
-  }, 3500);
-  setTimeout(() => {
-    textElement.innerText = blocks[0];
-    textElement.style.opacity = 1;
-    index = 1;
-    setTimeout(showNextBlock, 10200);
-  }, 4500);
-});
-</script>
-
-</body>
-</html>
